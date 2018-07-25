@@ -1,0 +1,24 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo Nothing to do in the install phase...
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn clean install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - zip -r AWS-CodePipeline-POC-Latest-Commit.zip target/AWS-CodePipeline-POC.war appspec.yml run.sh stop.sh
+      - aws s3 cp AWS-CodePipeline-POC-Latest-Commit.zip s3://akash.codedeploy.com/
+artifacts:
+  files:
+    - target/AWS-CodePipeline-POC.war
+    - appspec.yml
+    - run.sh
+    - stop.sh

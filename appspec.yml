@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: target/AWS-CodePipeline-POC.war
+    destination: /opt/awscodepipeline
+
+hooks:
+  BeforeInstall:
+    - location: stop.sh
+      runas: root
+      timeout: 180
+  ApplicationStart:
+    - location: run.sh
+      runas: root
+      timeout: 180
