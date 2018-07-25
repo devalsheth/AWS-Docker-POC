@@ -1,5 +1,8 @@
-version: 0.1
+version: 0.2
 
+env:
+  variables:
+    DOCKER_HOST: tcp://127.0.0.1:4243
 phases:
   install:
     commands:
