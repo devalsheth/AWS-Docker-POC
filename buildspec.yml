@@ -7,18 +7,18 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
   build:
     commands:
       - echo Build started on `date`
+      - echo Building the Docker image... 
       - mvn clean install
+      - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
   post_build:
     commands:
       - echo Build completed on `date`
-      - zip -r AWS-CodePipeline-POC-Latest-Commit.zip target/AWS-CodePipeline-POC.war appspec.yml run.sh stop.sh
-      - aws s3 cp AWS-CodePipeline-POC-Latest-Commit.zip s3://akash.codedeploy.com/
+      - echo Pushing the Docker image...
+      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
 artifacts:
   files:
-    - target/AWS-CodePipeline-POC.war
-    - appspec.yml
-    - run.sh
-    - stop.sh
+    - target/AWS-Docker-POC.war
