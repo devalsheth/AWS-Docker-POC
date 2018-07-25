@@ -7,8 +7,8 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
-      - DOCKER_HOST=tcp://127.0.0.1:4243
-      - export DOCKER_HOST
+      - export DOCKER_HOST=tcp://127.0.0.1:4243
+      - echo $DOCKER_HOST
       - docker --version
       - aws ecr get-login --no-include-email --region us-east-1
   build:
