@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Nothing to do in the pre_build phase...
       - docker --version
-      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - aws ecr get-login --no-include-email --region us-east-1
   build:
     commands:
       - echo Build started on `date`
