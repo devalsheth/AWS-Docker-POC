@@ -7,11 +7,13 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
+      - docker --version
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image... 
+      - docker --version
       - mvn clean install
       - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
   post_build:
