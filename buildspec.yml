@@ -9,7 +9,7 @@ phases:
       - echo Nothing to do in the pre_build phase...
       - echo $DOCKER_HOST
       - docker --version
-      - aws ecr get-login --no-include-email --region us-east-1
+      - $(aws ecr get-login --no-include-email --region us-east-1)
   build:
     commands:
       - echo Build started on `date`
@@ -17,12 +17,12 @@ phases:
       - docker --version
       - docker ps
       - mvn clean install
-      - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
+      - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
+      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/dockerimagetest:latest
 artifacts:
   files:
     - target/AWS-Docker-POC.war
