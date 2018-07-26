@@ -18,7 +18,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image... 
       - docker --version
-      - docker build -t codebuilddemo/awsdockerpoc
+      - docker ps
+      - mvn clean install
       - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/awsdockerpoc:latest
   post_build:
     commands:
