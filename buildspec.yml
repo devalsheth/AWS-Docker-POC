@@ -22,7 +22,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/codebuilddemo/dockerimagetest:latest
+      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
 artifacts:
   files:
     - target/AWS-Docker-POC.war
