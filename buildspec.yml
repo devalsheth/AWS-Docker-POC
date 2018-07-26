@@ -1,8 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    DOCKER_HOST: unix:///private/var/tmp/docker.sock
 phases:
   install:
     commands:
