@@ -7,9 +7,9 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
-      - echo $DOCKER_HOST
-      - docker --version
       - $(aws ecr get-login --no-include-email --region us-east-1)
+      - REPOSITORY_URI=454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
       - echo Build started on `date`
@@ -17,12 +17,14 @@ phases:
       - docker --version
       - docker ps
       - mvn clean install
-      - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - printf '[{"name":"ECSDockerContainer","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files:
     - target/AWS-Docker-POC.war
