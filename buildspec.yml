@@ -19,12 +19,11 @@ phases:
       - docker --version
       - docker ps
       - mvn clean install
-      - docker tag codebuilddemo/awsdockerpoc:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag codebuilddemo/awsdockerpoc $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push codebuilddemo/awsdockerpoc:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - printf '[{"name":"ECSDockerContainer","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
