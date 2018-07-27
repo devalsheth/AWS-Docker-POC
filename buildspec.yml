@@ -24,7 +24,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - ddocker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - printf '[{"name":"ECSDockerContainer","imageUri":"%s"}]' 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest > imagedefinitions.json
 artifacts:
   files:
