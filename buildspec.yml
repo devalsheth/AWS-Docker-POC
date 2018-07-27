@@ -18,13 +18,13 @@ phases:
       - docker --version
       - docker ps
       - mvn clean install
-      - docker tag codebuilddemo/awsdockerpoc:latest 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
+      - docker tag codebuilddemo/awsdockerpoc:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:latest
-      - docker push 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest
+      - ddocker push $REPOSITORY_URI:$IMAGE_TAG
       - printf '[{"name":"ECSDockerContainer","imageUri":"%s"}]' 454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest:latest > imagedefinitions.json
 artifacts:
   files:
