@@ -9,6 +9,7 @@ phases:
       - echo Nothing to do in the pre_build phase...
       - $(aws ecr get-login --no-include-email --region us-east-1)
       - REPOSITORY_URI=454143665149.dkr.ecr.us-east-1.amazonaws.com/dockerimagetest
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo $IMAGE_TAG
   build:
