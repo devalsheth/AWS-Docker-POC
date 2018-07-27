@@ -19,11 +19,11 @@
 set -e
 
 if [ -n "$JAVA_OPTS" ]; then
-    exec nohup java -jar app.war.war >>nohup.out 2>&1 &
+    exec nohup java -jar app.war >>nohup.out 2>&1 &
 else
     if [ -n "$1" ]; then
-        exec nohup java -jar app.war.war >>nohup.out 2>&1 &
+        exec nohup java -jar app.war >>nohup.out 2>&1 &
     else
-        exec nohup java -jar app.war.war >>nohup.out 2>&1 &
+        exec nohup java -jar app.war >>nohup.out 2>&1 &
     fi
 fi
